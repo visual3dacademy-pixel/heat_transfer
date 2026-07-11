@@ -1,0 +1,55 @@
+<!-- Version 2.3 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radiation Heat Transfer Through a Window</title>
+
+  <link rel="stylesheet" href="styles.css?v=2.3" />
+</head>
+
+<body>
+  <main class="app">
+    <section class="scene" aria-label="Radiation heat transfer through a window">
+      <img class="image-layer" src="no_sunlight.png" alt="Room with no direct sunlight" />
+      <img class="image-layer" src="med-low_sunglight.png" alt="" />
+      <img class="image-layer" src="med_sunlight.png" alt="" />
+      <img class="image-layer" src="med-high_sunlight.png" alt="" />
+      <img class="image-layer" src="high_sunlight.png" alt="" />
+
+      <div class="window-glow" id="windowGlow"></div>
+      <div class="light-overlay" id="lightOverlay"></div>
+      <div class="floor-glow" id="floorGlow"></div>
+      <div class="room-warmth" id="roomWarmth"></div>
+
+      <div class="rays" id="rays"></div>
+
+      <div class="heat-gain" aria-live="polite">
+        <span class="heat-gain-label">Heat Gain</span>
+        <span class="heat-gain-value" id="heatGainValue">0 BTUH</span>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Sun intensity controls">
+      <label for="sunSlider">Sun Intensity</label>
+
+      <input
+        id="sunSlider"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="0"
+        aria-label="Adjust sunlight and radiation intensity"
+      />
+
+      <div class="status-box" id="statusText">
+        No radiant heat transfer
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js?v=2.3"></script>
+</body>
+</html>
