@@ -1,7 +1,7 @@
-/* Version 2.3 */
+/* Version 3.0 */
 
 :root {
-  --control-height: 150px;
+  --control-height: 180px;
 }
 
 * {
@@ -179,22 +179,34 @@ body {
   }
 }
 
-.heat-gain {
+.heat-gain,
+.selected-time {
   position: absolute;
   top: 26px;
-  right: 28px;
   z-index: 15;
-  min-width: 250px;
+
   padding: 18px 22px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(8px);
-  text-align: right;
   color: #1f2937;
 }
 
-.heat-gain-label {
+.heat-gain {
+  right: 28px;
+  min-width: 250px;
+  text-align: right;
+}
+
+.selected-time {
+  left: 28px;
+  min-width: 190px;
+  text-align: left;
+}
+
+.heat-gain-label,
+.selected-time-label {
   display: block;
   margin-bottom: 4px;
   font-size: 18px;
@@ -204,12 +216,20 @@ body {
   color: #4b5563;
 }
 
-.heat-gain-value {
+.heat-gain-value,
+.selected-time-value {
   display: block;
   font-size: 34px;
   font-weight: 800;
   line-height: 1;
+}
+
+.heat-gain-value {
   color: #c84b18;
+}
+
+.selected-time-value {
+  color: #1877e8;
 }
 
 .controls {
@@ -219,7 +239,7 @@ body {
   bottom: 0;
   height: var(--control-height);
   display: grid;
-  grid-template-columns: 210px 1fr 430px;
+  grid-template-columns: 120px 1fr 430px;
   align-items: center;
   gap: 24px;
   padding: 28px 36px;
@@ -229,12 +249,56 @@ body {
   z-index: 20;
 }
 
-.controls label {
+.controls > label {
   font-size: 28px;
   font-weight: 700;
   color: #1f2937;
   white-space: nowrap;
 }
+
+
+.slider-group {
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: 56px 50px;
+  align-content: center;
+  min-width: 0;
+}
+
+.time-ticks {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.time-ticks button {
+  position: relative;
+  border: 0;
+  padding: 16px 4px 0;
+  background: transparent;
+  color: #5d6672;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.time-ticks button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 12px;
+  border-radius: 999px;
+  background: #aab2bc;
+  transform: translateX(-50%);
+}
+
+.time-ticks button:first-child { text-align: left; }
+.time-ticks button:first-child::before { left: 0; transform: none; }
+.time-ticks button:last-child { text-align: right; }
+.time-ticks button:last-child::before { right: 0; left: auto; transform: none; }
+.time-ticks button.active { color: #1877e8; }
+.time-ticks button.active::before { background: #1877e8; }
 
 input[type="range"] {
   width: 100%;
@@ -299,7 +363,7 @@ input[type="range"]::-moz-range-thumb {
     padding: 20px 24px;
   }
 
-  .controls label {
+  .controls > label {
     font-size: 21px;
   }
 
@@ -314,7 +378,8 @@ input[type="range"]::-moz-range-thumb {
     padding: 14px 18px;
   }
 
-  .heat-gain-value {
+  .heat-gain-value,
+.selected-time-value {
     font-size: 28px;
   }
 }
