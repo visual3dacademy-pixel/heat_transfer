@@ -1,4 +1,4 @@
-/* Version 3.0 */
+/* Version 3.1 */
 
 :root {
   --control-height: 180px;
@@ -22,6 +22,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+button,
+input {
+  font: inherit;
 }
 
 .app {
@@ -179,13 +184,18 @@ body {
   }
 }
 
-.heat-gain,
-.selected-time {
+.top-right-stack {
   position: absolute;
   top: 26px;
+  right: 28px;
   z-index: 15;
+  display: grid;
+  gap: 10px;
+  width: 250px;
+}
 
-  padding: 18px 22px;
+.heat-gain,
+.time-box {
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
@@ -194,19 +204,11 @@ body {
 }
 
 .heat-gain {
-  right: 28px;
-  min-width: 250px;
+  padding: 18px 22px;
   text-align: right;
 }
 
-.selected-time {
-  left: 28px;
-  min-width: 190px;
-  text-align: left;
-}
-
-.heat-gain-label,
-.selected-time-label {
+.heat-gain-label {
   display: block;
   margin-bottom: 4px;
   font-size: 18px;
@@ -216,19 +218,19 @@ body {
   color: #4b5563;
 }
 
-.heat-gain-value,
-.selected-time-value {
+.heat-gain-value {
   display: block;
   font-size: 34px;
   font-weight: 800;
   line-height: 1;
-}
-
-.heat-gain-value {
   color: #c84b18;
 }
 
-.selected-time-value {
+.time-box {
+  padding: 15px 22px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
   color: #1877e8;
 }
 
@@ -241,8 +243,8 @@ body {
   display: grid;
   grid-template-columns: 120px 1fr 430px;
   align-items: center;
-  gap: 24px;
-  padding: 28px 36px;
+  gap: 30px;
+  padding: 24px 36px 20px;
   background: rgba(247, 249, 251, 0.98);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.16);
@@ -250,12 +252,13 @@ body {
 }
 
 .controls > label {
+  align-self: start;
+  margin-top: 16px;
   font-size: 28px;
   font-weight: 700;
   color: #1f2937;
   white-space: nowrap;
 }
-
 
 .slider-group {
   align-self: stretch;
@@ -265,44 +268,10 @@ body {
   min-width: 0;
 }
 
-.time-ticks {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.time-ticks button {
-  position: relative;
-  border: 0;
-  padding: 16px 4px 0;
-  background: transparent;
-  color: #5d6672;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.time-ticks button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 4px;
-  height: 12px;
-  border-radius: 999px;
-  background: #aab2bc;
-  transform: translateX(-50%);
-}
-
-.time-ticks button:first-child { text-align: left; }
-.time-ticks button:first-child::before { left: 0; transform: none; }
-.time-ticks button:last-child { text-align: right; }
-.time-ticks button:last-child::before { right: 0; left: auto; transform: none; }
-.time-ticks button.active { color: #1877e8; }
-.time-ticks button.active::before { background: #1877e8; }
-
 input[type="range"] {
   width: 100%;
   height: 12px;
+  align-self: center;
   margin: 0;
   appearance: none;
   -webkit-appearance: none;
@@ -339,8 +308,75 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }
 
+input[type="range"]:focus-visible {
+  outline: 4px solid rgba(24, 119, 232, 0.24);
+  outline-offset: 8px;
+}
+
+.time-ticks {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: start;
+}
+
+.time-ticks button {
+  position: relative;
+  border: 0;
+  padding: 16px 4px 0;
+  background: transparent;
+  color: #5d6672;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.time-ticks button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 12px;
+  border-radius: 999px;
+  background: #aab2bc;
+  transform: translateX(-50%);
+}
+
+.time-ticks button:first-child {
+  text-align: left;
+}
+
+.time-ticks button:first-child::before {
+  left: 0;
+  transform: none;
+}
+
+.time-ticks button:last-child {
+  text-align: right;
+}
+
+.time-ticks button:last-child::before {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+.time-ticks button.active {
+  color: #1877e8;
+}
+
+.time-ticks button.active::before {
+  background: #1877e8;
+}
+
+.time-ticks button:focus-visible {
+  outline: 3px solid rgba(24, 119, 232, 0.3);
+  border-radius: 8px;
+}
+
 .status-box {
-  min-height: 60px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   padding: 0 22px;
@@ -354,32 +390,44 @@ input[type="range"]::-moz-range-thumb {
 
 @media (max-width: 1100px) {
   :root {
-    --control-height: 125px;
+    --control-height: 150px;
   }
 
   .controls {
-    grid-template-columns: 160px 1fr 300px;
-    gap: 14px;
-    padding: 20px 24px;
+    grid-template-columns: 90px 1fr 290px;
+    gap: 16px;
+    padding: 18px 22px 14px;
   }
 
   .controls > label {
     font-size: 21px;
   }
 
+  .time-ticks button {
+    font-size: 14px;
+  }
+
   .status-box {
+    min-height: 62px;
     font-size: 16px;
   }
 
-  .heat-gain {
+  .top-right-stack {
     top: 18px;
     right: 18px;
-    min-width: 205px;
+    width: 205px;
+  }
+
+  .heat-gain {
     padding: 14px 18px;
   }
 
-  .heat-gain-value,
-.selected-time-value {
+  .heat-gain-value {
     font-size: 28px;
+  }
+
+  .time-box {
+    padding: 12px 18px;
+    font-size: 24px;
   }
 }

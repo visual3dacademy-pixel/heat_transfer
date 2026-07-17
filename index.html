@@ -1,4 +1,4 @@
-<!-- Version 3.0 -->
+<!-- Version 3.1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Radiation Heat Transfer Through a Window</title>
 
-  <link rel="stylesheet" href="styles.css?v=3.0" />
+  <link rel="stylesheet" href="styles.css?v=3.1" />
 </head>
 
 <body>
   <main class="app">
     <section class="scene" aria-label="Radiation heat transfer through a window">
-      <img class="image-layer" src="no_sunlight.png" alt="Room with no direct sunlight" />
+      <img class="image-layer" src="no_sunlight.png" alt="Room at 7:00 AM with no direct sunlight" />
       <img class="image-layer" src="med-low_sunglight.png" alt="" />
       <img class="image-layer" src="med_sunlight.png" alt="" />
       <img class="image-layer" src="med-high_sunlight.png" alt="" />
@@ -25,14 +25,15 @@
 
       <div class="rays" id="rays"></div>
 
-      <div class="heat-gain" aria-live="polite">
-        <span class="heat-gain-label">Heat Gain</span>
-        <span class="heat-gain-value" id="heatGainValue">0 BTUH</span>
-      </div>
+      <div class="top-right-stack">
+        <div class="heat-gain" aria-live="polite">
+          <span class="heat-gain-label">Heat Gain</span>
+          <span class="heat-gain-value" id="heatGainValue">0 BTUH</span>
+        </div>
 
-      <div class="selected-time" aria-live="polite">
-        <span class="selected-time-label">Selected Time</span>
-        <span class="selected-time-value" id="selectedTimeValue">7 AM</span>
+        <div class="time-box" aria-live="polite">
+          <span id="timeValue">7:00 AM</span>
+        </div>
       </div>
     </section>
 
@@ -43,26 +44,28 @@
         <input
           id="timeSlider"
           type="range"
-          min="7"
-          max="11"
+          min="0"
+          max="240"
           step="1"
-          value="7"
-          aria-label="Select a time from 7 AM through 11 AM"
+          value="0"
+          aria-label="Select a time from 7:00 AM through 11:00 AM"
         />
 
         <div class="time-ticks" aria-hidden="true">
-          <button type="button" data-time="7">7 AM</button>
-          <button type="button" data-time="8">8 AM</button>
-          <button type="button" data-time="9">9 AM</button>
-          <button type="button" data-time="10">10 AM</button>
-          <button type="button" data-time="11">11 AM</button>
+          <button type="button" data-minute="0">7 AM</button>
+          <button type="button" data-minute="60">8 AM</button>
+          <button type="button" data-minute="120">9 AM</button>
+          <button type="button" data-minute="180">10 AM</button>
+          <button type="button" data-minute="240">11 AM</button>
         </div>
       </div>
 
-      <div class="status-box" id="statusText">No radiant heat transfer</div>
+      <div class="status-box" id="statusText">
+        No radiant heat transfer
+      </div>
     </section>
   </main>
 
-  <script src="script.js?v=3.0"></script>
+  <script src="script.js?v=3.1"></script>
 </body>
 </html>
