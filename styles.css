@@ -1,4 +1,4 @@
-/* Version 3.1 */
+/* Version 3.2 */
 
 :root {
   --control-height: 180px;
@@ -313,15 +313,16 @@ input[type="range"]:focus-visible {
   outline-offset: 8px;
 }
 
+/* Exact hourly positions: 0%, 25%, 50%, 75%, 100%. */
 .time-ticks {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: start;
+  height: 50px;
 }
 
 .time-ticks button {
-  position: relative;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
   border: 0;
   padding: 16px 4px 0;
   background: transparent;
@@ -329,6 +330,7 @@ input[type="range"]:focus-visible {
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .time-ticks button::before {
@@ -343,20 +345,36 @@ input[type="range"]:focus-visible {
   transform: translateX(-50%);
 }
 
-.time-ticks button:first-child {
+.time-ticks button:nth-child(1) {
+  left: 0%;
+  transform: translateX(0);
   text-align: left;
 }
 
-.time-ticks button:first-child::before {
+.time-ticks button:nth-child(1)::before {
   left: 0;
   transform: none;
 }
 
-.time-ticks button:last-child {
+.time-ticks button:nth-child(2) {
+  left: 25%;
+}
+
+.time-ticks button:nth-child(3) {
+  left: 50%;
+}
+
+.time-ticks button:nth-child(4) {
+  left: 75%;
+}
+
+.time-ticks button:nth-child(5) {
+  left: 100%;
+  transform: translateX(-100%);
   text-align: right;
 }
 
-.time-ticks button:last-child::before {
+.time-ticks button:nth-child(5)::before {
   right: 0;
   left: auto;
   transform: none;
