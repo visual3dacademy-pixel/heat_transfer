@@ -1,71 +1,76 @@
-<!-- Version 3.1 -->
+<!-- Version 4.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+  />
   <title>Radiation Heat Transfer Through a Window</title>
 
-  <link rel="stylesheet" href="styles.css?v=3.2" />
+  <link rel="stylesheet" href="styles.css?v=4.0" />
 </head>
 
 <body>
-  <main class="app">
-    <section class="scene" aria-label="Radiation heat transfer through a window">
-      <img class="image-layer" src="no_sunlight.png" alt="Room at 7:00 AM with no direct sunlight" />
-      <img class="image-layer" src="med-low_sunglight.png" alt="" />
-      <img class="image-layer" src="med_sunlight.png" alt="" />
-      <img class="image-layer" src="med-high_sunlight.png" alt="" />
-      <img class="image-layer" src="high_sunlight.png" alt="" />
+  <div class="viewport">
+    <main class="app" id="app">
+      <section class="scene" aria-label="Radiation heat transfer through a window">
+        <img class="image-layer" src="no_sunlight.png" alt="Room at 7:00 AM with no direct sunlight" />
+        <img class="image-layer" src="med-low_sunglight.png" alt="" />
+        <img class="image-layer" src="med_sunlight.png" alt="" />
+        <img class="image-layer" src="med-high_sunlight.png" alt="" />
+        <img class="image-layer" src="high_sunlight.png" alt="" />
 
-      <div class="window-glow" id="windowGlow"></div>
-      <div class="light-overlay" id="lightOverlay"></div>
-      <div class="floor-glow" id="floorGlow"></div>
-      <div class="room-warmth" id="roomWarmth"></div>
+        <div class="window-glow" id="windowGlow"></div>
+        <div class="light-overlay" id="lightOverlay"></div>
+        <div class="floor-glow" id="floorGlow"></div>
+        <div class="room-warmth" id="roomWarmth"></div>
 
-      <div class="rays" id="rays"></div>
+        <div class="rays" id="rays"></div>
 
-      <div class="top-right-stack">
-        <div class="heat-gain" aria-live="polite">
-          <span class="heat-gain-label">Heat Gain</span>
-          <span class="heat-gain-value" id="heatGainValue">0 BTUH</span>
+        <div class="top-right-stack">
+          <div class="heat-gain" aria-live="polite">
+            <span class="heat-gain-label">Heat Gain</span>
+            <span class="heat-gain-value" id="heatGainValue">0 BTUH</span>
+          </div>
+
+          <div class="time-box" aria-live="polite">
+            <span id="timeValue">7:00 AM</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Time controls">
+        <label for="timeSlider">Time</label>
+
+        <div class="slider-group">
+          <input
+            id="timeSlider"
+            type="range"
+            min="0"
+            max="240"
+            step="1"
+            value="0"
+            aria-label="Select a time from 7:00 AM through 11:00 AM"
+          />
+
+          <div class="time-ticks" aria-hidden="true">
+            <button type="button" data-minute="0">7 AM</button>
+            <button type="button" data-minute="60">8 AM</button>
+            <button type="button" data-minute="120">9 AM</button>
+            <button type="button" data-minute="180">10 AM</button>
+            <button type="button" data-minute="240">11 AM</button>
+          </div>
         </div>
 
-        <div class="time-box" aria-live="polite">
-          <span id="timeValue">7:00 AM</span>
+        <div class="status-box" id="statusText">
+          No radiant heat transfer
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
+  </div>
 
-    <section class="controls" aria-label="Time controls">
-      <label for="timeSlider">Time</label>
-
-      <div class="slider-group">
-        <input
-          id="timeSlider"
-          type="range"
-          min="0"
-          max="240"
-          step="1"
-          value="0"
-          aria-label="Select a time from 7:00 AM through 11:00 AM"
-        />
-
-        <div class="time-ticks" aria-hidden="true">
-          <button type="button" data-minute="0">7 AM</button>
-          <button type="button" data-minute="60">8 AM</button>
-          <button type="button" data-minute="120">9 AM</button>
-          <button type="button" data-minute="180">10 AM</button>
-          <button type="button" data-minute="240">11 AM</button>
-        </div>
-      </div>
-
-      <div class="status-box" id="statusText">
-        No radiant heat transfer
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js?v=3.1"></script>
+  <script src="script.js?v=4.0"></script>
 </body>
 </html>

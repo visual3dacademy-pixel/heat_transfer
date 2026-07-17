@@ -1,8 +1,12 @@
-// Version 3.1
+// Version 4.0
 
 (function () {
   "use strict";
 
+  const STAGE_WIDTH = 1920;
+  const STAGE_HEIGHT = 1080;
+
+  const app = document.getElementById("app");
   const slider = document.getElementById("timeSlider");
   const statusText = document.getElementById("statusText");
   const heatGainValue = document.getElementById("heatGainValue");
@@ -22,8 +26,8 @@
   const HOUR_MARKS = [0, 60, 120, 180, 240];
 
   const raySettings = [
-    { top: 6,  delay: 0.0, drift: 0 },
-    { top: 9,  delay: 0.3, drift: 14 },
+    { top: 6, delay: 0.0, drift: 0 },
+    { top: 9, delay: 0.3, drift: 14 },
     { top: 12, delay: 0.7, drift: -10 },
     { top: 15, delay: 1.0, drift: 20 },
     { top: 18, delay: 1.4, drift: -18 },
@@ -47,6 +51,23 @@
     { top: 89, delay: 2.0, drift: -8 },
     { top: 93, delay: 2.4, drift: 14 }
   ];
+
+  function scaleStage() {
+    const viewportWidth = window.visualViewport
+      ? window.visualViewport.width
+      : window.innerWidth;
+
+    const viewportHeight = window.visualViewport
+      ? window.visualViewport.height
+      : window.innerHeight;
+
+    const scale = Math.min(
+      viewportWidth / STAGE_WIDTH,
+      viewportHeight / STAGE_HEIGHT
+    );
+
+    app.style.setProperty("--stage-scale", scale.toFixed(6));
+  }
 
   function createRays() {
     raysContainer.innerHTML = "";
@@ -204,6 +225,21 @@
   createRays();
   slider.value = "0";
   updateScene();
+  scaleStage();
 
   slider.addEventListener("input", updateScene);
+
+  window.addEventListener("resize", scaleStage, { passive: true });
+  window.addEventListener("orientationchange", scaleStage, { passive: true });
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", scaleStage, {
+      passive: true
+    });
+  }
+
+  if (typeof ResizeObserver !== "undefined") {
+    const resizeObserver = new ResizeObserver(scaleStage);
+    resizeObserver.observe(document.documentElement);
+  }
 })();
